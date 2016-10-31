@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Lab Phone</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="set_angle">Set Angle</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="degree">°</string>
+
+    <string name="drawer_open">Menu</string>
+    <string name="drawer_close">Lab Phone</string>
+
+    <string-array name="menu">
+        <item>Voltage</item>
+        <item>Height</item>
+        <item>Frequency</item>
+        <item>Angle</item>
+        <item>Level</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
