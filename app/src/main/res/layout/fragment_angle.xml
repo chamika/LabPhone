@@ -4,24 +4,23 @@
     android:layout_height="match_parent"
     tools:context="lk.ac.mrt.labphone.fragment.AngleFragment">
 
-    <Button
-        android:id="@+id/button_help"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="16dp"
-        android:layout_toEndOf="@+id/button_angle"
-        android:layout_toRightOf="@+id/button_angle"
-        android:text="\?"
-        android:textSize="24sp" />
+    <!--<Button-->
+        <!--android:id="@+id/button_help"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_marginTop="16dp"-->
+        <!--android:layout_toEndOf="@+id/button_angle"-->
+        <!--android:layout_toRightOf="@+id/button_angle"-->
+        <!--android:text="\?"-->
+        <!--android:textSize="24sp" />-->
 
     <Button
         android:id="@+id/button_angle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/button_help"
-        android:layout_alignBottom="@+id/button_help"
+        android:layout_marginTop="16dp"
         android:layout_centerHorizontal="true"
         android:minWidth="160dp"
         android:text="@string/degree"
@@ -32,8 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/button_angle"
-        android:layout_marginTop="16dp"
+        android:layout_alignTop="@+id/button_angle"
         android:layout_toRightOf="@+id/button_angle"
         android:elevation="0dp"
         android:src="@drawable/ic_volume_up_black_24dp" />
@@ -42,15 +40,15 @@
         android:id="@+id/text_current"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/button_sound"
         android:layout_alignLeft="@id/button_angle"
-        android:layout_alignTop="@+id/button_sound"
+        android:layout_below="@id/button_angle"
         android:layout_centerHorizontal="true"
         android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp"
         android:layout_toLeftOf="@id/button_sound"
         android:gravity="center"
         android:text="30'"
-        android:textSize="28sp"
+        android:textSize="40sp"
         android:textStyle="bold" />
 
     <RelativeLayout

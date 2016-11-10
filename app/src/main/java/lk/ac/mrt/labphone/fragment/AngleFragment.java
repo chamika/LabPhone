@@ -32,13 +32,13 @@ public class AngleFragment extends Fragment {
 
     private AngleSensorListener angleSensorListener;
 
-    private int selectedAngle = 0;
+    private int selectedAngle = -45;
     private int workingAngle = 0;
     private int previousAngle = 0;
 
     private TextView textCurrent;
     private Button angleButton;
-    private Button helpButton;
+//    private Button helpButton;
     private ImageView imagePhone;
     private ImageView imageRotateLeft;
     private ImageView imageRotateRight;
@@ -62,7 +62,7 @@ public class AngleFragment extends Fragment {
 
         textCurrent = (TextView) view.findViewById(R.id.text_current);
         angleButton = (Button) view.findViewById(R.id.button_angle);
-        helpButton = (Button) view.findViewById(R.id.button_help);
+//        helpButton = (Button) view.findViewById(R.id.button_help);
         imagePhone = (ImageView) view.findViewById(R.id.image_phone);
         imageRotateLeft = (ImageView) view.findViewById(R.id.image_rotate_left);
         imageRotateRight = (ImageView) view.findViewById(R.id.image_rotate_right);
