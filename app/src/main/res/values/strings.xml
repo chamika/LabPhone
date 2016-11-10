@@ -19,4 +19,5 @@
     </string-array>
 
     <string name="hello_blank_fragment">Content not found</string>
+    <string name="error_flat_surface">Put the phone in flat surface</string>
 </resources>

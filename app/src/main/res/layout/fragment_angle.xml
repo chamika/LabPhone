@@ -51,6 +51,18 @@
         android:textSize="40sp"
         android:textStyle="bold" />
 
+    <TextView
+        android:id="@+id/text_error_flat"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_below="@id/text_current"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/fail"
+        android:visibility="gone"
+        android:text="@string/error_flat_surface"
+        android:textSize="20sp"/>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

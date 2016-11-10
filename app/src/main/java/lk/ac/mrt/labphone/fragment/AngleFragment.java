@@ -38,7 +38,7 @@ public class AngleFragment extends Fragment {
 
     private TextView textCurrent;
     private Button angleButton;
-//    private Button helpButton;
+    private TextView textErrorFlat;
     private ImageView imagePhone;
     private ImageView imageRotateLeft;
     private ImageView imageRotateRight;
@@ -51,6 +51,7 @@ public class AngleFragment extends Fragment {
     boolean successPlayed = false;
 
     private int threshold = 2;
+    private int flatThreshold = 20;
 
     public AngleFragment() {
     }
@@ -62,22 +63,27 @@ public class AngleFragment extends Fragment {
 
         textCurrent = (TextView) view.findViewById(R.id.text_current);
         angleButton = (Button) view.findViewById(R.id.button_angle);
-//        helpButton = (Button) view.findViewById(R.id.button_help);
         imagePhone = (ImageView) view.findViewById(R.id.image_phone);
         imageRotateLeft = (ImageView) view.findViewById(R.id.image_rotate_left);
         imageRotateRight = (ImageView) view.findViewById(R.id.image_rotate_right);
         soundButton = (ImageButton) view.findViewById(R.id.button_sound);
+        textErrorFlat = (TextView) view.findViewById(R.id.text_error_flat);
 
         SensorManager sensorManager = (SensorManager) getContext().getSystemService(Context.SENSOR_SERVICE);
         angleSensorListener = new AngleSensorListener(sensorManager, new AngleSensorListener.OnAngleValueChangedListener() {
             @Override
             public void onValueChanged(double x, double y, double z) {
                 double current = y * 180 / Math.PI;
-
+                System.out.println(x * 180 / Math.PI + "," + current + "," + z * 180 / Math.PI);
+                if (Math.abs(x * 180 / Math.PI) >= flatThreshold) {
+                    setViewVisibility(textErrorFlat, true);
+                    return;
+                } else {
+                    setViewVisibility(textErrorFlat, false);
+                }
                 workingAngle = Math.abs(Math.round((int) Math.round(current)));
                 textCurrent.setText(workingAngle + getString(R.string.degree));
 
-//                Log.d(TAG, "WorkingAngle,selectedAngle:" + workingAngle + "," + selectedAngle);
                 updateSoundRate(workingAngle, selectedAngle);
                 animateRotation(previousAngle, workingAngle);
                 if (Math.abs(workingAngle - selectedAngle) <= threshold) {
@@ -181,12 +187,12 @@ public class AngleFragment extends Fragment {
         int diff = Math.abs(workingAngle - selectedAngle);
 
         if (diff <= threshold) {
-            if(diff == 0)
+            if (diff == 0)
                 //play success sound if the selected value achieved
-            if(!successPlayed) {
-                successPlayed = true;
-                soundPool.play(soundIds[1], 1, 1, 1, 0, 1.0F);
-            }
+                if (!successPlayed) {
+                    successPlayed = true;
+                    soundPool.play(soundIds[1], 1, 1, 1, 0, 1.0F);
+                }
             soundThread.pausePlay();
         } else {
             soundThread.resumePlay();
