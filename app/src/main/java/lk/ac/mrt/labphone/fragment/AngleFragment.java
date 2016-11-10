@@ -14,8 +14,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
@@ -30,16 +34,21 @@ public class AngleFragment extends Fragment {
 
     private int selectedAngle = 0;
     private int workingAngle = 0;
+    private int previousAngle = 0;
 
     private TextView textCurrent;
     private Button angleButton;
     private Button helpButton;
+    private ImageView imagePhone;
+    private ImageView imageRotateLeft;
+    private ImageView imageRotateRight;
     private ImageButton soundButton;
 
     private int soundIds[];
     private SoundPool soundPool;
     private boolean soundEnabled = true;
     private SoundThread soundThread;
+    boolean successPlayed = false;
 
     private int threshold = 2;
 
@@ -54,6 +63,9 @@ public class AngleFragment extends Fragment {
         textCurrent = (TextView) view.findViewById(R.id.text_current);
         angleButton = (Button) view.findViewById(R.id.button_angle);
         helpButton = (Button) view.findViewById(R.id.button_help);
+        imagePhone = (ImageView) view.findViewById(R.id.image_phone);
+        imageRotateLeft = (ImageView) view.findViewById(R.id.image_rotate_left);
+        imageRotateRight = (ImageView) view.findViewById(R.id.image_rotate_right);
         soundButton = (ImageButton) view.findViewById(R.id.button_sound);
 
         SensorManager sensorManager = (SensorManager) getContext().getSystemService(Context.SENSOR_SERVICE);
@@ -65,20 +77,24 @@ public class AngleFragment extends Fragment {
                 workingAngle = Math.abs(Math.round((int) Math.round(current)));
                 textCurrent.setText(workingAngle + getString(R.string.degree));
 
-                Log.d(TAG, "WorkingAngle,selectedAngle:" + workingAngle + "," + selectedAngle);
+//                Log.d(TAG, "WorkingAngle,selectedAngle:" + workingAngle + "," + selectedAngle);
                 updateSoundRate(workingAngle, selectedAngle);
+                animateRotation(previousAngle, workingAngle);
                 if (Math.abs(workingAngle - selectedAngle) <= threshold) {
                     textCurrent.setTextColor(ContextCompat.getColor(getContext(), R.color.success));
-                }else{
+                } else {
                     textCurrent.setTextColor(ContextCompat.getColor(getContext(), R.color.fail));
                 }
+
+                previousAngle = workingAngle;
             }
         });
 
         soundPool = initSoundPool();
         getActivity().setVolumeControlStream(AudioManager.STREAM_MUSIC);
-        soundIds = new int[1];
+        soundIds = new int[2];
         soundIds[0] = soundPool.load(getActivity(), R.raw.beep, 1);
+        soundIds[1] = soundPool.load(getActivity(), R.raw.ting, 1);
 
         soundThread = new SoundThread();
         soundThread.setLevel(100);
@@ -105,10 +121,35 @@ public class AngleFragment extends Fragment {
         return view;
     }
 
+    public void animateRotation(int from, int to) {
+        RotateAnimation anim = new RotateAnimation(-from, -to,
+                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF, 0.5f);
+
+        anim.setInterpolator(new LinearInterpolator());
+        anim.setDuration(1000);
+        anim.setFillEnabled(true);
+
+        anim.setFillAfter(true);
+        imagePhone.startAnimation(anim);
+        int diff = selectedAngle - to;
+        if (Math.abs(diff) <= threshold) {
+            setViewVisibility(imageRotateRight, false);
+            setViewVisibility(imageRotateLeft, false);
+        } else {
+            if (diff < 0) {
+                setViewVisibility(imageRotateRight, true);
+                setViewVisibility(imageRotateLeft, false);
+            } else {
+                setViewVisibility(imageRotateRight, false);
+                setViewVisibility(imageRotateLeft, true);
+            }
+        }
+    }
+
     private void updateSoundButtonView() {
-        if(soundEnabled){
+        if (soundEnabled) {
             soundButton.setImageResource(R.drawable.ic_volume_up_black_24dp);
-        }else{
+        } else {
             soundButton.setImageResource(R.drawable.ic_volume_off_black_24dp);
         }
     }
@@ -140,11 +181,16 @@ public class AngleFragment extends Fragment {
         int diff = Math.abs(workingAngle - selectedAngle);
 
         if (diff <= threshold) {
-            //TODO play success sound
-//            level = 10;
+            if(diff == 0)
+                //play success sound if the selected value achieved
+            if(!successPlayed) {
+                successPlayed = true;
+                soundPool.play(soundIds[1], 1, 1, 1, 0, 1.0F);
+            }
             soundThread.pausePlay();
         } else {
             soundThread.resumePlay();
+            successPlayed = false;
         }
         level = log(diff, 2);
 
@@ -175,7 +221,7 @@ public class AngleFragment extends Fragment {
     }
 
     private void showStart() {
-        if(!soundThread.isAlive()) {
+        if (!soundThread.isAlive()) {
             soundThread.start();
         }
     }
@@ -242,13 +288,21 @@ public class AngleFragment extends Fragment {
             while (!stopped) {
                 try {
                     Thread.sleep(level * 100);
-                    if(enable && !mute) {
+                    if (enable && !mute) {
                         playBeep();
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
+        }
+    }
+
+    private void setViewVisibility(View view, boolean visible) {
+        if (visible) {
+            view.setVisibility(View.VISIBLE);
+        } else {
+            view.setVisibility(View.GONE);
         }
     }
 }
