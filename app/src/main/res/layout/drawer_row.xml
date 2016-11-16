@@ -12,5 +12,4 @@
     android:textColor="#565656"
     android:minHeight="48dp"
     android:layout_height="wrap_content">
-
 </TextView>

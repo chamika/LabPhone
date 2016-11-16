@@ -3,19 +3,23 @@ package lk.ac.mrt.labphone;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import lk.ac.mrt.labphone.fragment.AboutFragment;
 import lk.ac.mrt.labphone.fragment.AngleFragment;
 import lk.ac.mrt.labphone.fragment.FrequencyFragment;
 import lk.ac.mrt.labphone.fragment.HeightFragment;
 import lk.ac.mrt.labphone.fragment.LevelFragment;
+import lk.ac.mrt.labphone.fragment.MainFragment;
 import lk.ac.mrt.labphone.fragment.VoltageFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -51,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
         menuTexts = getResources().getStringArray(R.array.menu);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+
         final ListView drawerList = (ListView) findViewById(R.id.list_drawer);
 
         drawerList.setAdapter(new ArrayAdapter<>(this, R.layout.drawer_row, menuTexts));
@@ -79,6 +84,19 @@ public class MainActivity extends AppCompatActivity {
         };
         drawerLayout.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
+
+        // load default fragment
+        MainFragment mainFragment = new MainFragment();
+        mainFragment.setMainActivity(this);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.content_frame, mainFragment)
+                .commit();
+    }
+
+    public void handleMenuSelect(int position) {
+        final ListView drawerList = (ListView) findViewById(R.id.list_drawer);
+        handleMenuSelect(drawerList,position);
     }
 
     private void handleMenuSelect(ListView drawerList, int position) {
@@ -86,19 +104,27 @@ public class MainActivity extends AppCompatActivity {
         Fragment fragment = null;
         switch (position) {
             case 0:
-                fragment = new VoltageFragment();
+                MainFragment mainFragment = new MainFragment();
+                mainFragment.setMainActivity(this);
+                fragment = mainFragment;
                 break;
             case 1:
-                fragment = new HeightFragment();
+                fragment = new VoltageFragment();
                 break;
             case 2:
-                fragment = new FrequencyFragment();
+                fragment = new HeightFragment();
                 break;
             case 3:
-                fragment = new AngleFragment();
+                fragment = new FrequencyFragment();
                 break;
             case 4:
+                fragment = new AngleFragment();
+                break;
+            case 5:
                 fragment = new LevelFragment();
+                break;
+            case 6:
+                fragment = new AboutFragment();
                 break;
         }
 
@@ -111,9 +137,17 @@ public class MainActivity extends AppCompatActivity {
 
             // Highlight the selected item, update the title, and close the drawer
             drawerList.setItemChecked(position, true);
-            setTitle(menuTexts[position]);
+
+            if (position != 0) setTitle(menuTexts[position]);
+            else setTitle("Lab Phone");
+
             drawerLayout.closeDrawer(drawerLayout.findViewById(R.id.left_drawer), true);
         }
+    }
+
+    private void handleMenuClick(int position) {
+        final ListView drawerList = (ListView) findViewById(R.id.list_drawer);
+        handleMenuSelect(drawerList, position);
     }
 
     @Override

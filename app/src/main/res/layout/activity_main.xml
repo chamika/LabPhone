@@ -7,26 +7,26 @@
 
     <!-- The main content view -->
 
-        <FrameLayout
-            android:id="@+id/content_frame"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+    <FrameLayout
+        android:id="@+id/content_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 
     <!-- The navigation drawer -->
     <RelativeLayout
         android:id="@+id/left_drawer"
         android:layout_width="240dp"
-        android:background="#ffffff"
         android:layout_height="match_parent"
-        android:layout_gravity="start">
+        android:layout_gravity="start"
+        android:background="#ffffff">
 
         <ImageView
-            android:id="@+id/image_logo"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:scaleType="fitCenter"
-            android:src="@mipmap/ic_launcher" />
+        android:id="@+id/image_logo"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/ic_launcher" />
 
         <ListView
             android:id="@+id/list_drawer"

@@ -11,13 +11,22 @@
     <string name="drawer_close">Lab Phone</string>
 
     <string-array name="menu">
+        <item>Home</item>
         <item>Voltage</item>
         <item>Height</item>
         <item>Frequency</item>
         <item>Angle</item>
         <item>Level</item>
+        <item>About</item>
     </string-array>
 
-    <string name="hello_blank_fragment">Content not found</string>
     <string name="error_flat_surface">Put the phone in flat surface</string>
+    <string name="frequency">Frequency</string>
+    <string name="lab_phone">Lab Phone</string>
+    <string name="level">Level</string>
+    <string name="angle">Angle</string>
+    <string name="height">Height</string>
+    <string name="voltage">Voltage</string>
+    <string name="github_url">https://github.com/chamika/LabPhone</string>
+    <string name="content_loading">Content loading...</string>
 </resources>
