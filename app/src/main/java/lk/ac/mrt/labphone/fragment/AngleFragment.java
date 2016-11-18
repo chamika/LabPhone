@@ -87,7 +87,7 @@ public class AngleFragment extends Fragment {
                 updateSoundRate(workingAngle, selectedAngle);
                 animateRotation(previousAngle, workingAngle);
                 if (Math.abs(workingAngle - selectedAngle) <= threshold) {
-                    textCurrent.setTextColor(ContextCompat.getColor(getContext(), R.color.success));
+                    textCurrent.setTextColor(ContextCompat.getColor(getContext(), R.color.success_angle));
                 } else {
                     textCurrent.setTextColor(ContextCompat.getColor(getContext(), R.color.fail));
                 }

@@ -5,5 +5,6 @@
     <color name="colorAccent">#F15152</color>
 
     <color name="success">#EDB183</color>
+    <color name="success_angle">#4CAF50</color>
     <color name="fail">#F15152</color>
 </resources>
