@@ -5,14 +5,81 @@
     android:orientation="vertical"
     tools:context="lk.ac.mrt.labphone.fragment.FrequencyFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/textView"
-        style="@style/TextAppearance.AppCompat.Medium"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/frequency" />
+        android:baselineAligned="false"
+        android:orientation="vertical"
+        android:padding="15dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="@string/frequency" />
+
+            <TextView
+                android:id="@+id/textViewFrequencyNo"
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="0" />
+
+            <TextView
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" Hz" />
+        </LinearLayout>
+
+        <SeekBar
+            android:id="@+id/seekBarFrequency"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="20000" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="@string/duration" />
+
+            <TextView
+                android:id="@+id/textViewDurationNo"
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="0" />
+
+            <TextView
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" s" />
+        </LinearLayout>
+
+        <SeekBar
+            android:id="@+id/seekBarDuration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="15" />
+    </LinearLayout>
 
     <ToggleButton
         android:id="@+id/toggleButtonFrequency"
