@@ -145,11 +145,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void handleMenuClick(int position) {
-        final ListView drawerList = (ListView) findViewById(R.id.list_drawer);
-        handleMenuSelect(drawerList, position);
-    }
-
     @Override
     public void setTitle(CharSequence title) {
         getSupportActionBar().setTitle(title);
