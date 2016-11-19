@@ -101,7 +101,7 @@ public class FrequencyFragment extends Fragment {
                     // isPlaying = isChecked;
                     // The toggle is enabled
                     // playSound(1500);
-                    handleTonePlay("1500", "5");
+                    handleTonePlay(freq, duration);
                 } else {
                     // The toggle is disabled
                     // stopSound(mAudioTrack);
@@ -112,30 +112,22 @@ public class FrequencyFragment extends Fragment {
         return v;
     }
 
-    private void handleTonePlay(String freqString, String durationString) {
-        if (!"".equals(freqString) && !"".equals(durationString)) {
-            if (!isPlaying) {
-                freq = Integer.parseInt(freqString);
-                duration = Integer.parseInt(durationString);
-                // Play Tone
-                ZenTone.getInstance().generate(freq, duration, 0.5f, new ToneStoppedListener() {
-                    @Override
-                    public void onToneStopped() {
-                        toggle.setChecked(false);
-                        isPlaying = false;
-                    }
-                });
+    private void handleTonePlay(int freq, int duration) {
+        if (!isPlaying) {
+            // Play Tone
+            ZenTone.getInstance().generate(freq, duration, 0.5f, new ToneStoppedListener() {
+                @Override
+                public void onToneStopped() {
+                    toggle.setChecked(false);
+                    isPlaying = false;
+                }
+            });
 
-                isPlaying = true;
-            } else {
-                // Stop Tone
-                ZenTone.getInstance().stop();
-                isPlaying = false;
-            }
-        } else if ("".equals(freqString)) {
-//            Toast.makeText(MainActivity.this, "Please enter a frequency!", Toast.LENGTH_SHORT).show();
-        } else if ("".equals(durationString)) {
-//            Toast.makeText(MainActivity.this, "Please enter duration!", Toast.LENGTH_SHORT).show();
+            isPlaying = true;
+        } else {
+            // Stop Tone
+            ZenTone.getInstance().stop();
+            isPlaying = false;
         }
     }
 
