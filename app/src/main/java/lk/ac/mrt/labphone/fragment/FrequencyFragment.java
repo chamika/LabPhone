@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +22,7 @@ import in.excogitation.zentone.library.ToneStoppedListener;
 import in.excogitation.zentone.library.ZenTone;
 import lk.ac.mrt.labphone.MainActivity;
 import lk.ac.mrt.labphone.R;
+import lk.ac.mrt.labphone.view.RoundKnobButton;
 
 import static android.R.attr.duration;
 import static android.R.attr.id;
@@ -51,7 +53,7 @@ public class FrequencyFragment extends Fragment {
         final View v = inflater.inflate(R.layout.fragment_frequency, container, false);
 
         // inputs
-        SeekBar frequencySeek = (SeekBar) v.findViewById(R.id.seekBarFrequency);
+        final SeekBar frequencySeek = (SeekBar) v.findViewById(R.id.seekBarFrequency);
         frequencySeek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
             @Override
@@ -109,6 +111,31 @@ public class FrequencyFragment extends Fragment {
                 }
             }
         });
+        RelativeLayout.LayoutParams lp;
+        RelativeLayout panel = (RelativeLayout) v.findViewById(R.id.rotator_knob); // new RelativeLayout(this);
+        RoundKnobButton rv = new RoundKnobButton(v.getContext(), R.drawable.stator, R.drawable.rotoron, R.drawable.rotoroff, (int) getResources().getDimension(R.dimen.knob_size), (int) getResources().getDimension(R.dimen.knob_size));
+        lp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        lp.addRule(RelativeLayout.CENTER_IN_PARENT);
+        panel.addView(rv, lp);
+
+        rv.setRotorPercentage(0);
+
+        rv.SetListener(new RoundKnobButton.RoundKnobButtonListener() {
+            public void onStateChange(boolean newstate) {
+                // Toast.makeText(MainActivity.this, "New state:" + newstate, Toast.LENGTH_SHORT).show();
+            }
+
+            public void onRotate(final int percentage) {
+                frequencySeek.post(new Runnable() {
+                    public void run() {
+                        frequencySeek.setProgress(1500 * percentage / 100);
+                    }
+                });
+            }
+        });
+
+//        ((ViewGroup) v.findViewById(R.id.rotator_knob)).addView(rv);
+
         return v;
     }
 
@@ -130,7 +157,6 @@ public class FrequencyFragment extends Fragment {
             isPlaying = false;
         }
     }
-
 // legacy method
 //    @TargetApi(Build.VERSION_CODES.CUPCAKE)
 //    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
