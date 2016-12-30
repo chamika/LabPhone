@@ -27,7 +27,7 @@
                 <ImageView
                     android:layout_width="75dp"
                     android:layout_height="75dp"
-                    android:src="@drawable/ic_battery_charging_full_black_24dp" />
+                    android:src="@mipmap/icon_voltage" />
 
                 <TextView
                     style="@style/TextAppearance.AppCompat.Medium"
@@ -55,7 +55,7 @@
                 <ImageView
                     android:layout_width="75dp"
                     android:layout_height="75dp"
-                    android:src="@drawable/ic_nature_people_black_24dp" />
+                    android:src="@mipmap/icon_height" />
 
                 <TextView
                     style="@style/TextAppearance.AppCompat.Medium"
@@ -83,7 +83,7 @@
                 <ImageView
                     android:layout_width="75dp"
                     android:layout_height="75dp"
-                    android:src="@drawable/ic_speaker_phone_black_24dp" />
+                    android:src="@mipmap/icon_frequency" />
 
                 <TextView
                     style="@style/TextAppearance.AppCompat.Medium"
@@ -111,7 +111,7 @@
                 <ImageView
                     android:layout_width="75dp"
                     android:layout_height="75dp"
-                    android:src="@drawable/ic_screen_rotation_black_24dp" />
+                    android:src="@mipmap/icon_angle" />
 
                 <TextView
                     style="@style/TextAppearance.AppCompat.Medium"
@@ -139,7 +139,7 @@
                 <ImageView
                     android:layout_width="75dp"
                     android:layout_height="75dp"
-                    android:src="@drawable/ic_device_hub_black_24dp" />
+                    android:src="@mipmap/icon_level" />
 
                 <TextView
                     style="@style/TextAppearance.AppCompat.Medium"
