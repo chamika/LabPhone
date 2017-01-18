@@ -133,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
                     .replace(R.id.content_frame, fragment)
+                    .addToBackStack(null)
                     .commit();
 
             // Highlight the selected item, update the title, and close the drawer
