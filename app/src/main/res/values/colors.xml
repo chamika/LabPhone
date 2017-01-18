@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#00bcd4</color>
-    <color name="colorPrimaryDark">#055043</color>
-    <color name="colorAccent">#F15152</color>
-
+    <color name="colorPrimary">#2196F3</color>
+    <color name="colorPrimaryDark">#1976D2</color>
+    <color name="colorAccent">#E040FB</color>
     <color name="success">#EDB183</color>
     <color name="success_angle">#4CAF50</color>
     <color name="fail">#F15152</color>
