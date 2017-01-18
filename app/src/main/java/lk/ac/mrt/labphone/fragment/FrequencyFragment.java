@@ -6,9 +6,11 @@ import android.media.AudioManager;
 import android.media.AudioTrack;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
@@ -113,7 +115,7 @@ public class FrequencyFragment extends Fragment {
         });
         RelativeLayout.LayoutParams lp;
         RelativeLayout panel = (RelativeLayout) v.findViewById(R.id.rotator_knob); // new RelativeLayout(this);
-        RoundKnobButton rv = new RoundKnobButton(v.getContext(), R.drawable.stator, R.drawable.rotoron, R.drawable.rotoroff, (int) getResources().getDimension(R.dimen.knob_size), (int) getResources().getDimension(R.dimen.knob_size));
+        final RoundKnobButton rv = new RoundKnobButton(v.getContext(), R.drawable.stator, R.drawable.rotoron, R.drawable.rotoroff, (int) getResources().getDimension(R.dimen.knob_size), (int) getResources().getDimension(R.dimen.knob_size));
         lp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         lp.addRule(RelativeLayout.CENTER_IN_PARENT);
         panel.addView(rv, lp);
@@ -134,7 +136,12 @@ public class FrequencyFragment extends Fragment {
             }
         });
 
-//        ((ViewGroup) v.findViewById(R.id.rotator_knob)).addView(rv);
+        rv.post(new Runnable() {
+            @Override
+            public void run() {
+                rv.setRotorPercentage(0);
+            }
+        });
 
         return v;
     }
